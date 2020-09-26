@@ -7,15 +7,15 @@ import calculator.util.*;
 import java.util.StringTokenizer;
 
 public class Calculator {
-
     private StringTokenizer leftExpressionAnalyser;
-    private String[] operators = new String[]{"+", "-", "*", "/"};
     private String leftExpression;
     private Operate operate;
+    private ValueParser valueParser;
 
     public Calculator(String expression, StackInterface stackInterface) {
         leftExpressionAnalyser = new StringTokenizer(expression);
         operate = new Operate(expression, stackInterface);
+        valueParser = new ValueParser();
     }
 
     public TreeNode compute() {
@@ -27,7 +27,7 @@ public class Calculator {
         TreeNode treeNode = parseInteger();
         if (treeNode == null) return null;
 
-        while (isOperator(leftExpression) && priority <= precedence(leftExpression))  {
+        while (valueParser.isOperator(leftExpression) && priority <= precedence(leftExpression))  {
             String operator = leftExpression;
             getNextToken();
             TreeNode rightExpression = parseExpression(precedence(operator));
@@ -38,17 +38,18 @@ public class Calculator {
             }
             else  {
                 TreeNode leftExpression = treeNode;
-                if(operator.equals("+"))
+                if(operator.equals("+")) {
                     operate.addition(leftExpression, rightExpression);
-                else  if(operator.equals("-"))
+                } else if(operator.equals("-")) {
                     operate.subtraction(leftExpression, rightExpression);
-                else  if(operator.equals("*"))
+                } else if(operator.equals("*")) {
                     operate.multiplication(leftExpression, rightExpression);
-                else if(operator.equals("/"))
+                } else if(operator.equals("/")) {
                     operate.division(leftExpression, rightExpression);
-                else
+                } else {
                     // System.out.print("Calculator.parseExpression - ");
                     System.out.println("ERROR in INPUT!");
+                }
             }
         }
         return treeNode;
@@ -57,7 +58,7 @@ public class Calculator {
     private TreeNode parseInteger() {
         TreeNode numeric = null;
 
-        if (this.isInteger(leftExpression))  {
+        if (valueParser.isInteger(leftExpression))  {
             numeric = new NumericNode(new Integer(leftExpression).intValue());
             if (this.leftExpressionAnalyser.hasMoreTokens())
                 getNextToken();
@@ -73,13 +74,6 @@ public class Calculator {
         return numeric;
     }
 
-    /*
-    Operators: DEC  ASCII
-               42  =  *
-               43  =  +
-               45  =  -
-               47  =  /
-    */
     private int precedence(String operator) {
         if (operator.equals("*")) {
             return 3;
@@ -92,24 +86,6 @@ public class Calculator {
         } else {
             return - 1;
         }
-    }
-
-    private boolean isInteger(String integer) {
-        try {
-            Integer.parseInt(integer);
-            return true;
-        } catch (NumberFormatException e) {
-            return false;
-        }
-    }
-
-
-    private boolean isOperator(String operator) {
-        boolean isOperator = false;
-        for (int i = 0; i < operators.length; i++)
-            if (operators[i].equals(operator))
-                isOperator = true;
-        return isOperator;
     }
 
     private void getNextToken() {

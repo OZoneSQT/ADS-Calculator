@@ -9,14 +9,14 @@ import calculator.nodes.operator.SubtractionNode;
 public class Operate {
     private QueueInterface queueInterface;
     private StackInterface stackInterface;
-    private CharToASCII charToASCII;
+    private ValueParser valueParser;
     private double totalSum;
 
     public Operate(String expression, StackInterface stackInterface) {
         this.totalSum = 0;
-        charToASCII = new CharToASCII();
         queueInterface = new QueueFIFO(expression.length());
         this.stackInterface = stackInterface;
+        valueParser = new ValueParser();
     }
 
     public TreeNode addition(TreeNode rightExpression, TreeNode leftExpression) {
@@ -46,22 +46,12 @@ public class Operate {
     private double computeOperator(TreeNode treeNode, TreeNode leftExpression) {
         double result = 0.0;
         if (queueInterface.isEmpty()) {
-            queueInterface.enqueue(getDouble(leftExpression.toString()));
+            queueInterface.enqueue(valueParser.getDoubleValue(leftExpression.toString()));
         } else {
-            result = treeNode.computeOperator(getDouble(leftExpression.toString()), (double) queueInterface.dequeue());
+            result = treeNode.computeOperator(valueParser.getDoubleValue(leftExpression.toString()), (double) queueInterface.dequeue());
         }
         stackInterface.enqueue(result);
         return result;
-    }
-
-    private double getDouble(String integer) {
-        int value = charToASCII.getValueASCII(integer);
-        return charToASCII.returnDecimal(value);
-    }
-
-    private int getASCII(String element) {
-        int elementValue = element.charAt(0);
-        return elementValue;
     }
 
     //TODO Only public For testing
