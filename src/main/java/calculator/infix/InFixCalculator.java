@@ -1,6 +1,12 @@
 package calculator.infix;
 
 import calculator.nodes.*;
+import calculator.nodes.numeric.NumericNode;
+import calculator.nodes.operator.AdditionNode;
+import calculator.nodes.operator.DivisionNode;
+import calculator.nodes.operator.MultiplicationNode;
+import calculator.nodes.operator.SubtractionNode;
+
 import java.util.StringTokenizer;
 
 public class InFixCalculator {

@@ -1,4 +1,7 @@
-package calculator.nodes;
+package calculator.nodes.operator;
+
+import calculator.nodes.BinaryOperatorNode;
+import calculator.nodes.TreeNode;
 
 public class SubtractionNode extends BinaryOperatorNode {
 

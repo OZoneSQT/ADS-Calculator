@@ -1,17 +1,24 @@
 package calculator.util;
 
-public interface StackInterface<T> {
-    /**
-     * Add element to queue
-     * @param element
-     */
-    void enqueue(T element);
+public interface StackInterface<AnyType> {
 
     /**
-     * Return and remove, last added element from queue
+     * Add element to stack
+     * @param element
+     */
+    void push(AnyType element);
+
+    /**
+     * Preview last element added to stack
      * @return
      */
-    T dequeue();
+    AnyType peek();
+
+    /**
+     * Return and remove, last added element from stack
+     * @return
+     */
+    AnyType pop();
 
     /**
      * Return size of queue
@@ -24,4 +31,5 @@ public interface StackInterface<T> {
      * @return
      */
     boolean isEmpty();
+
 }

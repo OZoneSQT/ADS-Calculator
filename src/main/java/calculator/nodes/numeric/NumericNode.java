@@ -1,4 +1,7 @@
-package calculator.nodes;
+package calculator.nodes.numeric;
+
+import calculator.nodes.TreeNode;
+import calculator.nodes.Visitor;
 
 public class NumericNode implements TreeNode {
   private int value;

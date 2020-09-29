@@ -1,7 +1,7 @@
 package calculator.infix;
 
 import calculator.nodes.BinaryOperatorNode;
-import calculator.nodes.NumericNode;
+import calculator.nodes.numeric.NumericNode;
 import calculator.nodes.Visitor;
 
 public class InFixPrintVisitor extends Visitor {

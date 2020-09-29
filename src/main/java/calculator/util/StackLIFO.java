@@ -2,14 +2,14 @@ package calculator.util;
 
 import java.util.ArrayDeque;
 
-public class StackLIFO<T> implements StackInterface<T> {
-    private ArrayDeque<T> stack;
+public class StackLIFO<AnyType> implements StackInterface<AnyType> {
+    private ArrayDeque<AnyType> stack;
     private int  count;
 
     public StackLIFO() {
     }
 
-    public void enqueue(T element) throws IllegalArgumentException, IllegalStateException {
+    public void push(AnyType element) throws IllegalArgumentException, IllegalStateException {
         if(stack == null) {
             stack = new ArrayDeque<>();
         }
@@ -22,12 +22,20 @@ public class StackLIFO<T> implements StackInterface<T> {
         count++;
     }
 
-    public T dequeue() throws IllegalStateException {
+    public AnyType peek() {
         if(count == 0) {
-            throw new IllegalStateException("Queue is empty");
+            throw new IllegalStateException("Stack is empty");
         }
-        T result = stack.getLast();
-        stack.removeLast();
+        AnyType result = stack.peekLast();
+        return result;
+    }
+
+    public AnyType pop() throws IllegalStateException {
+        if(count == 0) {
+            throw new IllegalStateException("Stack is empty");
+        }
+        AnyType result = stack.pollLast();
+        //stack.removeLast();
         return result;
     }
 
