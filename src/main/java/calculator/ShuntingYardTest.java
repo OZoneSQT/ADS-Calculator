@@ -1,12 +1,12 @@
 package calculator;
 
-import calculator.postfix.ShuntingYard;
+import calculator.postfix.PostFixShuntingYard;
 
 public class ShuntingYardTest {
     public static void main(String[] args) {
-        ShuntingYard shuntingYard = new ShuntingYard();
+        PostFixShuntingYard postFixShuntingYard = new PostFixShuntingYard();
         String[] input = "( 1 + 2 ) * ( 3 / 4 ) - ( 5 + 6 )".split(" ");
-        String[] output = shuntingYard.infixToRPN(input);
+        String[] output = postFixShuntingYard.infixToRPN(input);
 
         // Build output RPN string minus the commas
         for (String token : output) {
@@ -14,7 +14,7 @@ public class ShuntingYardTest {
         }
 
         // Feed the RPN string to RPNtoDouble to give result
-        Double result = shuntingYard.getResult(output);
+        Double result = postFixShuntingYard.getResult(output);
         System.out.println(result);
     }
 }

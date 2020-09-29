@@ -1,19 +1,15 @@
 package calculator.infix;
 
 import calculator.nodes.*;
-
 import java.util.StringTokenizer;
 
-/*
- * This class parses the given expression into a parse tree
- */
 public class InFixCalculator {
-  private StringTokenizer lexAnalyser;
-  private String lexItem;
-  private ExpressionParser expressionParser = new ExpressionParser();
+  private StringTokenizer leftExpressionAnalyser;
+  private String leftExpressionItem;
+  private InfixExpressionParser infixExpressionParser = new InfixExpressionParser();
 
   public InFixCalculator(String expression) {
-    lexAnalyser = new StringTokenizer(expression);
+    leftExpressionAnalyser = new StringTokenizer(expression);
   }
 
   public TreeNode parse() {
@@ -22,59 +18,56 @@ public class InFixCalculator {
   }
 
   private TreeNode computeExpression(int priority)  {
-    TreeNode lhs = handleInteger();
-    if (lhs == null) return null;
+    TreeNode leftNode = handleInteger();
+    if (leftNode == null) return null;
 
-    while (expressionParser.isOperator(lexItem) && priority <= expressionParser.leftPrecedence(lexItem))  {
-      String op = lexItem;
+    while (infixExpressionParser.isOperator(leftExpressionItem) && priority <= infixExpressionParser.leftPrecedence(leftExpressionItem))  {
+      String operand = leftExpressionItem;
       getNextToken();
-      TreeNode rhs = computeExpression(expressionParser.rightPrecedence(op));
-      if (rhs == null) {
+      TreeNode rightNode = computeExpression(infixExpressionParser.rightPrecedence(operand));
+      if (rightNode == null) {
         System.out.print("InFixCalculator.computeExpression - ");
         System.out.println("Error in expression");
         System.exit(1);
-      }
-      else  {
-        TreeNode temp = lhs;
-        if(op.equals("+"))
-          lhs = new AdditionNode(temp, rhs);
-        else
-        if(op.equals("-"))
-          lhs = new SubtractionNode(temp, rhs);
-        else
-        if(op.equals("*"))
-          lhs = new MultiplicationNode(temp, rhs);
-        else
-        if(op.equals("/"))
-          lhs = new DivisionNode(temp, rhs);
-        else
+      } else {
+        TreeNode temp = leftNode;
+        if(operand.equals("+")) {
+          leftNode = new AdditionNode(temp, rightNode);
+        } else if(operand.equals("-")) {
+          leftNode = new SubtractionNode(temp, rightNode);
+        } else if(operand.equals("*")) {
+          leftNode = new MultiplicationNode(temp, rightNode);
+        } else if(operand.equals("/")) {
+          leftNode = new DivisionNode(temp, rightNode);
+        } else {
           System.out.print("InFixCalculator.computeExpression - ");
           System.out.println("ERROR in INPUT!");
+        }
       }
     }
-    return lhs;
+    return leftNode;
   }
 
   private TreeNode handleInteger() {
-    TreeNode nodep = null;
+    TreeNode numeric = null;
 
-    if (expressionParser.isInteger(lexItem))  {
-      nodep = new NumericNode(Integer.parseInt(lexItem));
-      if (this.lexAnalyser.hasMoreTokens())
+    if (infixExpressionParser.isInteger(leftExpressionItem)) {
+      numeric = new NumericNode(Integer.parseInt(leftExpressionItem));
+      if (this.leftExpressionAnalyser.hasMoreTokens()) {
         getNextToken();
-      else
-        this.lexItem = null;
-    }
-    else  {
+      } else {
+        this.leftExpressionItem = null;
+      }
+    } else {
       System.out.print("InFixCalculator.parseInteger - ");
-      System.out.println("Error in expression " + lexItem);
+      System.out.println("Error in expression " + leftExpressionItem);
       System.exit(1);
     }
-    return nodep;
+    return numeric;
   }
 
   private void getNextToken() {
-    lexItem = lexAnalyser.nextToken();
+    leftExpressionItem = leftExpressionAnalyser.nextToken();
   }
 
 }
