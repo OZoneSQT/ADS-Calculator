@@ -18,8 +18,8 @@ public class Main {
         InFixCalculator inFixCalculator = new InFixCalculator(expression);
         TreeNode treeNode = inFixCalculator.parse();
         System.out.print("INFIX: ");
-        Visitor v = new InFixPrintVisitor();
-        treeNode.accept(v);
+        Visitor visitor = new InFixPrintVisitor();
+        treeNode.accept(visitor);
         System.out.println();
     }
 
@@ -28,6 +28,5 @@ public class Main {
         PostFixPrinter postFixPrinter = new PostFixPrinter();
         postFixPrinter.printPostFixExpression(expression);
     }
-
 
 }

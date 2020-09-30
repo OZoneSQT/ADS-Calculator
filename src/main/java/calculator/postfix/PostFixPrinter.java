@@ -20,4 +20,16 @@ public class PostFixPrinter {
         System.out.println("\n Result = " + result);
     }
 
+    /*
+    Methods for testing, issue with line-shift
+     */
+    public void testPrintPostFixExpression(String expression) {
+        String[] input = expression.split(" ");
+        String[] output = postFixShuntingYard.infixToPostFix(input);
+
+        for (String token : output) {
+            System.out.print(token + " ");
+        }
+    }
+
 }

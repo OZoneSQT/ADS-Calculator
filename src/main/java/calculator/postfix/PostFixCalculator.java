@@ -20,15 +20,15 @@ public class PostFixCalculator {
             if (!postFixExpressionParser.isOperator(token)) {
                 stackInterface.push(token);
             } else {
-                Double aDouble = Double.valueOf( stackInterface.pop() );
-                Double bDouble = Double.valueOf( stackInterface.pop() );
+                Double aDouble = Double.valueOf(stackInterface.pop());
+                Double bDouble = Double.valueOf(stackInterface.pop());
 
                 Double result = token.compareTo("+") == 0 ? bDouble + aDouble :
                         token.compareTo("-") == 0 ? bDouble - aDouble :
                                 token.compareTo("*") == 0 ? bDouble * aDouble :
                                         bDouble / aDouble;
 
-                stackInterface.push( String.valueOf( result ));
+                stackInterface.push(String.valueOf(result));
             }
         }
         return Double.valueOf(stackInterface.pop());
