@@ -25,17 +25,17 @@ public class Main {
             } else {
                 System.exit(0);
             }
-            printOriginalExpression(testExpression);
-            printInfix(testExpression);
-            printPostFix(testExpression);
-            System.out.println();
+            printExpression(testExpression);
         }
 
     }
 
-    private static void printOriginalExpression(String expression) {
+    private static void printExpression(String expression) {
         System.out.print("ORIGINAL: ");
         System.out.println(expression);
+        printInfix(expression);
+        printPostFix(expression);
+        System.out.println();
     }
 
     private static void printInfix(String expression) {
