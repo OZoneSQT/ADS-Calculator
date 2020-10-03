@@ -9,10 +9,28 @@ import calculator.postfix.PostFixPrinter;
 public class Main {
 
     public static void main(String[] args) {
-        String testExpression = "1 + 2 - 3 * 2 / 5 * 5 - 2"; // spaces are vital!!
-        printOriginalExpression(testExpression);
-        printInfix(testExpression);
-        printPostFix(testExpression);
+        String testExpression = "";
+
+        for (int i = 0; i < 5; i++) {
+            if (i == 0) {
+                testExpression = "1 + 2 - 3 * 2 / 5 * 5 - 2"; // spaces are vital!!
+            } else if (i == 1) {
+                testExpression = "9 * 2 / 5 + 5 - 2";
+            } else if (i == 2) {
+                testExpression = "1 - 2 * 3 / -2";
+            } else if (i == 3) {
+                testExpression = "22 + 2 * 2 / 6";
+            } else if (i == 4) {
+                testExpression = "32 - 5 / 5 * 6 - 6 / 2";
+            } else {
+                System.exit(0);
+            }
+            printOriginalExpression(testExpression);
+            printInfix(testExpression);
+            printPostFix(testExpression);
+            System.out.println();
+        }
+
     }
 
     private static void printOriginalExpression(String expression) {
