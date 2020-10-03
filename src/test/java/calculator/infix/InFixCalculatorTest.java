@@ -37,7 +37,7 @@ class InFixCalculatorTest {
         System.setOut(originalOut);
     }
 
-    //TODO Test crashes: Process finished with exit code 1, but throws IllegalArgumentException
+    //TODO Test crashes: Process finished with exit code 1, but throws the expected IllegalArgumentException
     /*
     @Test
     void inPostFixExpressionTestExpressionIllegalArgumentExceptionFalse() {
@@ -52,7 +52,7 @@ class InFixCalculatorTest {
     }
     */
 
-    //TODO Test crashes: Process finished with exit code 1, but throws IllegalArgumentException
+    //TODO Test crashes: Process finished with exit code 1, but throws the expected IllegalArgumentException
     /*
     @Test
     void inPostFixExpressionTestExpressionIllegalArgumentExceptionLetterFalse() {

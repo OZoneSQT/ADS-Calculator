@@ -17,7 +17,7 @@ public class PostFixPrinter {
 
         Double result = postFixCalculator.getResult(output);
 
-        System.out.println("\n Result = " + result);
+        System.out.println("\nResult = " + result);
     }
 
     /*
